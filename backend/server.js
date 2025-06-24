@@ -9,8 +9,16 @@ const app = express();
 
 app.use(express.json())
 
-app.get("/", (req, res) => {
-    res.send("Hello node js")
+app.get("/", async (req, res) => {
+    try {
+        const products = await Product.find({}) // empty object -> fetch all products
+
+        res.status(200).json({success: true, message: "Get SuccessFull!", data: products})
+    }
+    catch(e) {
+        console.log(`Server Error: ${e.message}`)
+        return res.status(500).json({success: false, message: "Server Error"})
+    }
 })
 
 app.post("/api/products", async(req, res) => {
