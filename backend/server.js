@@ -1,6 +1,7 @@
 import express from 'express'
 import connectDB from './config/db.js';
 import dotenv from 'dotenv'
+import Product from './models/product.model.js';
 
 dotenv.config() 
 
