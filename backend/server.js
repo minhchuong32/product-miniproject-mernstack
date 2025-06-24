@@ -2,7 +2,7 @@ import express from 'express'
 import connectDB from './config/db.js';
 import dotenv from 'dotenv'
 import Product from './models/product.model.js';
-
+import mongoose from 'mongoose'
 dotenv.config() 
 
 const app = express();
@@ -28,6 +28,23 @@ app.post("/api/products", async(req, res) => {
         return res.status(200).json({success: true, message: "Create product successfully !", data: newProduct})
     }
     catch(e){
+        console.log(`Server Error: ${e.message}`)
+        return res.status(500).json({success: false, message: "Server Error"})
+    }
+})
+
+app.delete("/api/products/:id", async (req, res) => {
+    const {id} = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id))
+    {
+        return res.status(400).json({success: false, message: "Invalid product Id"})
+    }
+
+    try {
+        await Product.findByIdAndDelete(id);
+        return res.status(200).json({success: true, message: "Delete Successfully !"})
+    }
+    catch(e) {
         console.log(`Server Error: ${e.message}`)
         return res.status(500).json({success: false, message: "Server Error"})
     }
