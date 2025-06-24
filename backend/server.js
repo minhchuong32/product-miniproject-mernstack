@@ -7,11 +7,33 @@ dotenv.config()
 
 const app = express();
 
-console.log(process.env.MONGO_URI)
+app.use(express.json())
 
 app.get("/", (req, res) => {
     res.send("Hello node js")
 })
+
+app.post("/api/products", async(req, res) => {
+    const product = req.body;
+
+    if(!product.image || !product.price || !product.name)
+    {
+        return res.status(400).json({success: false, message: "You must be provide all field"})
+    }
+
+    const newProduct = Product(product)
+
+    try {
+        await newProduct.save();
+        return res.status(200).json({success: true, message: "Create product successfully !", data: newProduct})
+    }
+    catch(e){
+        console.log(`Server Error: ${e.message}`)
+        return res.status(500).json({success: false, message: "Server Error"})
+    }
+})
+
+
 app.listen(5000, () => {
     connectDB();
     console.log("Server is running at port 5000")
