@@ -2,6 +2,9 @@ import { Container, Flex, Text, HStack, Button} from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaPlusSquare } from "react-icons/fa";
+import { IoMoon } from "react-icons/io5";
+import { LuSun } from "react-icons/lu";
+
 import {
   ColorModeButton,
   DarkMode,
@@ -30,17 +33,16 @@ const Navbar = () => {
           textAlign={{ base: "center", sm: "left" }}
           textTransform={"uppercase"}
         >
-          <Link to="/">Product Store 🛒 </Link>
+          <Link to={"/"}>Product Store 🛒 </Link>
         </Text>
 
-        <HStack spacing={2} mt={{ base: 4, sm: 0 }} alignItems={"center"}>
-          <Link to="/create">
+        <HStack spacing={2} alignItems={"center"}>
+          <Link to={"/create"}>
             <Button>
               <FaPlusSquare />
-              Thêm sản phẩm
             </Button>
           </Link>
-          <Button onClick={toggleColorMode}>{colorMode === "light" ? "🌙":"☀️"}</Button>
+          <Button onClick={toggleColorMode}>{colorMode === "light" ?  <IoMoon/>: <LuSun/>}</Button>
         </HStack>
       </Flex>
     </Container>
