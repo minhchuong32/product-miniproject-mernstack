@@ -8,6 +8,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 
+import { Toaster, toaster } from "@/components/ui/toaster"
+
 import {
   ColorModeButton,
   DarkMode,
@@ -15,6 +17,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@/components/ui/color-mode";
+import { useProductStore } from "../store/product";
 
 const CreatePage = () => {
     // init state for new product
@@ -24,8 +27,29 @@ const CreatePage = () => {
     image: "",
   });
 
-  const handleAppProduct = () => {
-    console.log("Product created:", newProduct);
+  const {createProduct} = useProductStore();
+  const handleAddProduct = async () => {
+   const {success, message} = await createProduct(newProduct);
+   console.log(success, message);
+    // Check if the product was created successfully
+   if(!success) {
+     toaster.error({
+       description: message,
+       status: "error",
+       duration: 3000,
+       isClosable: true,
+     });
+     return;
+   }
+   else {
+     toaster.success({
+       description: message,
+       status: "success",
+       duration: 3000,
+       isClosable: true,
+     });
+   }
+   setNewProduct({ name: "", price: "", image: "" }); // Reset form
   };
 
   return (
@@ -71,7 +95,7 @@ const CreatePage = () => {
                 setNewProduct({ ...newProduct, image: e.target.value })
               }
             />
-            <Button colorScheme="blue" onClick={handleAppProduct} width="full">
+            <Button colorScheme="blue" onClick={handleAddProduct} width="full">
               Create Product
             </Button>
           </VStack>

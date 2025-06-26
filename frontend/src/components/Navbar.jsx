@@ -12,9 +12,11 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@/components/ui/color-mode"
+import { useProductStore } from "../store/product"
 
 const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
+    const { products } = useProductStore();
   return (
     <Container maxW={"1140px"} px={4}>
       <Flex

@@ -1,0 +1,38 @@
+import { create } from "zustand";
+
+// Tạo custom hook tên là useProductStore
+export const useProductStore = create((set) => ({
+  products: [], // Mảng lưu danh sách sản phẩm
+
+  // Hàm để cập nhật toàn bộ danh sách sản phẩm
+  setProducts: (products) => set({ products }),
+
+  // Hàm async để tạo sản phẩm mới
+  createProduct: async (newProduct) => {
+    // Kiểm tra nếu thiếu trường nào thì trả về lỗi
+    if (!newProduct.name || !newProduct.image || !newProduct.price) {
+      return { success: false, message: "You must provide all fields" };
+    }
+
+    // Gửi POST request lên API để tạo sản phẩm
+    try {
+      const res = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProduct),
+      });
+
+      // Lấy dữ liệu trả về
+      const data = await res.json();
+
+      set((state) => ({
+        products: [...state.products, data.data], 
+      }));
+
+      return { success: true, message: "Product created successfully" };
+    } catch (error) {}
+    return { success: false, message: "Network or server error" };
+  },
+}));
