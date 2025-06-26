@@ -29,7 +29,7 @@ const Navbar = () => {
         }}
       >
         <Text
-          color={"black.500"}
+          color={"blue.500"}
           fontSize={{ base: "2xl", sm: "3xl" }}
           fontWeight={"bold"}
           textAlign={{ base: "center", sm: "left" }}
