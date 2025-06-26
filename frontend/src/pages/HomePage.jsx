@@ -6,7 +6,9 @@ import { SimpleGrid } from "@chakra-ui/react";
 import ProductCard from "../components/ProductCard";
 
 const HomePage = () => {
-  const { fetchProducts, products } = useProductStore();
+  const products = useProductStore((state) => state.products);
+  const fetchProducts = useProductStore((state) => state.fetchProducts);
+
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
@@ -26,29 +28,36 @@ const HomePage = () => {
           Current Product
         </Text>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6} spacing={6} w="full">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </SimpleGrid>
-
-        <Text
-          fontSize="xl"
-          textAlign={"center"}
-          fontWeight="bold"
-          color="gray.500"
-        >
-          No products found
-          <Link to={"/create"}>
-            <Text
-              as="span"
-              color="blue.500"
-              _hover={{ textDecoration: "underline" }}
-            >
-              Create a product
-            </Text>
-          </Link>
-        </Text>
+        {products.length > 0 ? (
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 3 }}
+            gap={6}
+            spacing={6}
+            w="full"
+          >
+            {products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </SimpleGrid>
+        ) : (
+          <Text
+            fontSize="xl"
+            textAlign="center"
+            fontWeight="bold"
+            color="gray.500"
+          >
+            No products found.{" "}
+            <Link to={"/create"}>
+              <Text
+                as="span"
+                color="blue.500"
+                _hover={{ textDecoration: "underline" }}
+              >
+                Create a product
+              </Text>
+            </Link>
+          </Text>
+        )}
       </VStack>
     </Container>
   );
