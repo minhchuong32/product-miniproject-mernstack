@@ -37,9 +37,22 @@ export const useProductStore = create((set) => ({
   },
 
   fetchProducts: async () => {
-    const res = await fetch("/api/products");
-    const data = await res.json();
-    set({ products: data.data });
+    try {
+      const res = await fetch("/api/products");
+      // Kiểm tra HTTP status code và Content-Type
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const contentType = res.headers.get("Content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error(`Response is not JSON`);
+      }
+      const data = await res.json();
+      set({ products: data.data });
+    } catch (e) {
+      console.error("Failed to fetch products: ", e);
+      set({ products: [] }); // fallback để tránh app crash
+    }
   },
 
   deleteProduct: async (pid) => {
