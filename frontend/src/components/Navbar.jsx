@@ -1,18 +1,13 @@
-import { Container, Flex, Text, HStack, Button} from "@chakra-ui/react";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Button, Container, Flex, HStack, Text } from "@chakra-ui/react";
 import { FaPlusSquare } from "react-icons/fa";
 import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 import {
-  ColorModeButton,
-  DarkMode,
-  LightMode,
-  useColorMode,
-  useColorModeValue,
-} from "@/components/ui/color-mode"
-import { useProductStore } from "../store/product"
+    useColorMode
+} from "@/components/ui/color-mode";
+import { useProductStore } from "../store/product";
 
 const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();

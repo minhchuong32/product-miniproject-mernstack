@@ -1,11 +1,11 @@
-import { Route, Routes } from "react-router-dom";
-import { Box } from "@chakra-ui/react";
-import HomePage from "./pages/HomePage";
-import CreatePage from "./pages/CreatePage";
-import UpdatePage from "./pages/UpdatePage";
-import Navbar from "./components/Navbar";
-import { useProductStore } from "./store/product";
 import { Toaster } from "@/components/ui/toaster";
+import { Box } from "@chakra-ui/react";
+import { Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import CreatePage from "./pages/CreatePage";
+import HomePage from "./pages/HomePage";
+import UpdatePage from "./pages/UpdatePage";
+import { useProductStore } from "./store/product";
 
 function App() {
   const { products } = useProductStore();

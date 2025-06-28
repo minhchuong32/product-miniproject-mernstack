@@ -1,21 +1,17 @@
-import React from "react";
 import {
-  Container,
-  VStack,
-  Heading,
-  Box,
-  Input,
-  Button,
+    Box,
+    Button,
+    Container,
+    Heading,
+    Input,
+    VStack,
 } from "@chakra-ui/react";
+import React from "react";
 
-import { Toaster, toaster } from "@/components/ui/toaster"
+import { toaster } from "@/components/ui/toaster";
 
 import {
-  ColorModeButton,
-  DarkMode,
-  LightMode,
-  useColorMode,
-  useColorModeValue,
+    useColorModeValue
 } from "@/components/ui/color-mode";
 import { useProductStore } from "../store/product";
 

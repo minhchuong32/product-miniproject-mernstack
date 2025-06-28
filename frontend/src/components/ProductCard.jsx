@@ -1,12 +1,10 @@
-import { Box } from "@chakra-ui/react";
-import { Image, Heading, Text, HStack } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import { MdDeleteForever } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
-import { IconButton } from "@chakra-ui/react";
-import { useProductStore } from "../store/product";
 import { toaster } from "@/components/ui/toaster";
+import { Box, Heading, HStack, IconButton, Image, Text } from "@chakra-ui/react";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useProductStore } from "../store/product";
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
