@@ -6,13 +6,24 @@ import { FaEdit } from "react-icons/fa";
 import { IconButton } from "@chakra-ui/react";
 import { useProductStore } from "../store/product";
 import { toaster } from "@/components/ui/toaster";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
   const textColor = useColorModeValue("gray.800", "whiteAlpha.900");
   const bg = useColorModeValue("white", "gray.700");
 
-  const { deleteProduct } = useProductStore();
+  const { deleteProduct, fetchProducts } = useProductStore();
+
   const handleDelete = async (id) => {
+    const isConfirmed = window.confirm(
+      `Bạn có chắc chắn muốn xóa sản phẩm "${product.name}" không?`
+    );
+
+    if (!isConfirmed) {
+      return;
+    }
+
     const { success, message } = await deleteProduct(id);
     if (!success) {
       toaster.error({
@@ -23,6 +34,7 @@ const ProductCard = ({ product }) => {
       });
       return;
     }
+    await fetchProducts();
     toaster.success({
       description: message,
       status: "success",
@@ -30,6 +42,11 @@ const ProductCard = ({ product }) => {
       isClosable: true,
     });
   };
+
+  const handleEdit = () => {
+    navigate(`/update/${product._id}`);
+  };
+
   return (
     <Box
       shadow="lg"
@@ -74,7 +91,7 @@ const ProductCard = ({ product }) => {
             variant="solid"
             bg="blue.600"
             _hover={{ bg: "blue.300" }}
-            onClick={() => handleEdit(product._id)}
+            onClick={handleEdit}
           >
             <FaEdit />
           </IconButton>
