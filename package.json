@@ -1,23 +1,22 @@
 {
   "name": "mini-product-mernstack",
   "version": "1.0.0",
+  "description": "Mini Product MERN Stack Application",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./backend/server.js",
-    "start": "node ./backend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "build:and:start": "npm run build && npm start",
+    "setup": "npm run install:all && npm run build:and:start"
   },
-  "type": "module",
-  "keywords": [],
+  "keywords": [
+    "mern",
+    "react",
+    "express",
+    "mongodb"
+  ],
   "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "mongoose": "^8.16.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.10"
-  }
+  "license": "MIT"
 }
